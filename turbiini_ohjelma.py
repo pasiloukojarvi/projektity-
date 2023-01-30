@@ -168,37 +168,37 @@ class Vuotuisetkayttotiedot(Kuukausittaisetkayttotiedot):
       # Summataan sarakkeen "syötetty_energia" tiedot jokaiselta vuodelta erikseen.
       if current_year == 2022:
         summa = df.loc[0:11, "syötetty_energia"].sum() + self.syotettu_energia  
-        self.lampo_vuodessa = summa
+        self.energia_vuodessa = summa
       elif current_year == 2023:       
         summa = df.loc[12:23, "syötetty_energia"].sum() + self.syotettu_energia  
-        self.lampo_vuodessa = summa            
+        self.energia_vuodessa = summa            
       elif current_year == 2024:
         summa = df.loc[24:35, "syötetty_energia"].sum() + self.syotettu_energia  
-        self.lampo_vuodessa = summa
+        self.energia_vuodessa = summa
       elif current_year == 2025:       
         summa = df.loc[36:47, "syötetty_energia"].sum() + self.syotettu_energia  
-        self.lampo_vuodessa = summa
+        self.energia_vuodessa = summa
       elif current_year == 2026:       
         summa = df.loc[48:59, "syötetty_energia"].sum() + self.syotettu_energia  
-        self.lampo_vuodessa = summa            
+        self.energia_vuodessa = summa            
       elif current_year == 2027:
         summa = df.loc[60:71, "syötetty_energia"].sum() + self.syotettu_energia  
-        self.lampo_vuodessa = summa
+        self.energia_vuodessa = summa
       elif current_year == 2028:       
         summa = df.loc[72:83, "syötetty_energia"].sum() + self.syotettu_energia  
-        self.lampo_vuodessa = summa
+        self.energia_vuodessa = summa
       elif current_year == 2029:       
         summa = df.loc[84:95, "syötetty_energia"].sum() + self.syotettu_energia  
-        self.lampo_vuodessa = summa
+        self.energia_vuodessa = summa
       elif current_year == 2030:       
         summa = df.loc[96:107, "syötetty_energia"].sum() + self.syotettu_energia  
-        self.lampo_vuodessa = summa            
+        self.energia_vuodessa = summa            
       elif current_year == 2031:
         summa = df.loc[108:119, "syötetty_energia"].sum() + self.syotettu_energia  
-        self.lampo_vuodessa = summa
+        self.energia_vuodessa = summa
       elif current_year == 2032:       
         summa = df.loc[120:131, "syötetty_energia"].sum() + self.syotettu_energia  
-        self.lampo_vuodessa = summa 
+        self.energia_vuodessa = summa 
 
 # Tämä luokka laskee jokaiselle kuulle käyttötietojen kertymän koko
 # turbiinin käyttöiän ajalta.                              
@@ -277,7 +277,7 @@ while True:
     Kokonaiskayttotiedot.energian_syotto(tiedot)
     Vuotuisetkayttotiedot.sahkovuodessa(tiedot)
     Vuotuisetkayttotiedot.lampovuodessa(tiedot)
-    #Vuotuisetkayttotiedot.energiavuodessa(tiedot) 
+    Vuotuisetkayttotiedot.energiavuodessa(tiedot) 
     tiedot.halytys1()
     tiedot.halytys2()
     tiedot.halytys3()
