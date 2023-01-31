@@ -1,7 +1,8 @@
-import time
-import matplotlib.pyplot as plt
-import pandas as pd
-import numpy as np 
+import time  #Käytetään nykyisen ajan saamiseen tietojen kirjauksen yhteydessä.
+import pandas as pd  #CSV-tiedostojen lukemiseen.
+#import numpy as np
+import csv  #CSV-tiedoston vierheellisen käyttötiedon kiinni ottamiseen.
+import kuvaajat #Itse tehty moduuli kuvaajien tekoa varten.
 
 
 def my_join(lista,sep):
@@ -22,8 +23,17 @@ class Kuukausittaisetkayttotiedot:
 
 #Ohjelma kysyy turbiinin käyttötiedot.        
     def kysy_kk_vuosi(self):
-      print("Anna kuukausi ja vuosi muodossa kk/vuosi. Esim. 1/23")
-      self.kk_vuosi = str(input("Minkä kuukauden tietoja olet antamassa?(kk/vuosi): "))    
+      while True:
+       print("Anna kuukausi ja vuosi muodossa kk/vuosi. Esim. 1/23")
+       self.kk_vuosi = str(input("Minkä kuukauden tietoja olet antamassa?(kk/vuosi): "))
+       with open("kayttotiedot.csv", "r") as file:
+         reader = csv.reader(file)
+         for row in reader:
+          last_row = row
+       if self.kk_vuosi == last_row[0][:4]:
+        print("Virhe: Annoit saman kuukauden ja vuoden kuin viimeksikin!")
+       else:
+        break    
     def kysy_sahko(self):
       self.sahko = int(input("Anna kuukauden sähköntuotanto(MWh):"))
     def kysy_lampo(self):  
@@ -82,123 +92,132 @@ class Vuotuisetkayttotiedot(Kuukausittaisetkayttotiedot):
 
     def sahkovuodessa(self):
       df = pd.read_csv("kayttotiedot.csv")
-      #current_time = time.gmtime() 
-      #current_year = current_time.tm_year
-      current_year = 2022
+      current_time = time.gmtime() 
+      current_year = current_time.tm_year
+      #current_year = 2022
       # Summataan sarakkeen "sähköntuotto" tiedot jokaiselta vuodelta erikseen.
-      if current_year == 2022:
+      if current_year == 2021:
         summa = df.loc[df.index[0:11], "sähköntuotto"].sum() + self.sahko  
         self.sahko_vuodessa = summa
-      elif current_year == 2023:       
+      elif current_year == 2022:       
         summa = df.loc[12:23, "sähköntuotto"].sum() + self.sahko  
         self.sahko_vuodessa = summa            
-      elif current_year == 2024:
+      elif current_year == 2023:
         summa = df.loc[24:35, "sähköntuotto"].sum() + self.sahko  
         self.sahko_vuodessa = summa
-      elif current_year == 2025:       
+      elif current_year == 2024:       
         summa = df.loc[36:47, "sähköntuotto"].sum() + self.sahko  
         self.sahko_vuodessa = summa
-      elif current_year == 2026:       
+      elif current_year == 2025:       
         summa = df.loc[48:59, "sähköntuotto"].sum() + self.sahko  
         self.sahko_vuodessa = summa            
-      elif current_year == 2027:
+      elif current_year == 2026:
         summa = df.loc[60:71, "sähköntuotto"].sum() + self.sahko  
         self.sahko_vuodessa = summa
-      elif current_year == 2028:       
+      elif current_year == 2027:       
         summa = df.loc[72:83, "sähköntuotto"].sum() + self.sahko  
         self.sahko_vuodessa = summa
-      elif current_year == 2029:       
+      elif current_year == 2028:       
         summa = df.loc[84:95, "sähköntuotto"].sum() + self.sahko  
         self.sahko_vuodessa = summa
-      elif current_year == 2030:       
+      elif current_year == 2029:       
         summa = df.loc[96:107, "sähköntuotto"].sum() + self.sahko  
         self.sahko_vuodessa = summa            
-      elif current_year == 2031:
+      elif current_year == 2030:
         summa = df.loc[108:119, "sähköntuotto"].sum() + self.sahko  
         self.sahko_vuodessa = summa
-      elif current_year == 2032:       
+      elif current_year == 2031:       
         summa = df.loc[120:131, "sähköntuotto"].sum() + self.sahko  
         self.sahko_vuodessa = summa 
+      elif current_year == 2032:       
+        summa = df.loc[132:143, "sähköntuotto"].sum() + self.sahko  
+        self.sahko_vuodessa = summa      
 
     def lampovuodessa(self):
       df = pd.read_csv("kayttotiedot.csv")
-      #current_time = time.gmtime() 
-      #current_year = current_time.tm_year
-      current_year = 2022
+      current_time = time.gmtime() 
+      current_year = current_time.tm_year
+      #current_year = 2022
       # Summataan sarakkeen "lämmöntuotto" tiedot jokaiselta vuodelta erikseen.
-      if current_year == 2022:
+      if current_year == 2021:
         summa = df.loc[0:11, "lämmöntuotto"].sum() + self.lampo   
         self.lampo_vuodessa = summa
-      elif current_year == 2023:       
+      elif current_year == 2022:       
         summa = df.loc[12:23, "lämmöntuotto"].sum() + self.lampo  
         self.lampo_vuodessa = summa            
-      elif current_year == 2024:
+      elif current_year == 2023:
         summa = df.loc[24:35, "lämmöntuotto"].sum() + self.lampo  
         self.lampo_vuodessa = summa
-      elif current_year == 2025:       
+      elif current_year == 2024:       
         summa = df.loc[36:47, "lämmöntuotto"].sum() + self.lampo  
         self.lampo_vuodessa = summa
-      elif current_year == 2026:       
+      elif current_year == 2025:       
         summa = df.loc[48:59, "lämmöntuotto"].sum() + self.lampo  
         self.lampo_vuodessa = summa            
-      elif current_year == 2027:
+      elif current_year == 2026:
         summa = df.loc[60:71, "lämmöntuotto"].sum() + self.lampo  
         self.lampo_vuodessa = summa
-      elif current_year == 2028:       
+      elif current_year == 2027:       
         summa = df.loc[72:83, "lämmöntuotto"].sum() + self.lampo  
         self.lampo_vuodessa = summa
-      elif current_year == 2029:       
+      elif current_year == 2028:       
         summa = df.loc[84:95, "lämmöntuotto"].sum() + self.lampo  
         self.lampo_vuodessa = summa
-      elif current_year == 2030:       
+      elif current_year == 2029:       
         summa = df.loc[96:107, "lämmöntuotto"].sum() + self.lampo  
         self.lampo_vuodessa = summa            
-      elif current_year == 2031:
+      elif current_year == 2030:
         summa = df.loc[108:119, "lämmöntuotto"].sum() + self.lampo  
         self.lampo_vuodessa = summa
-      elif current_year == 2032:       
+      elif current_year == 2031:       
         summa = df.loc[120:131, "lämmöntuotto"].sum() + self.lampo  
-        self.lampo_vuodessa = summa  
+        self.lampo_vuodessa = summa 
+      elif current_year == 2032:       
+        summa = df.loc[132:143, "lämmöntuotto"].sum() + self.lampo  
+        self.lampo_vuodessa = summa         
 
     def energiavuodessa(self):
       df = pd.read_csv("kayttotiedot.csv")
       current_time = time.gmtime() 
-      #current_year = current_time.tm_year
-      current_year = 2022
+      current_year = current_time.tm_year
+      #current_year = 2022
       # Summataan sarakkeen "syötetty_energia" tiedot jokaiselta vuodelta erikseen.
-      if current_year == 2022:
+      if current_year == 2021:
         summa = df.loc[0:11, "syötetty_energia"].sum() + self.syotettu_energia  
         self.energia_vuodessa = summa
-      elif current_year == 2023:       
+      elif current_year == 2022:       
         summa = df.loc[12:23, "syötetty_energia"].sum() + self.syotettu_energia  
         self.energia_vuodessa = summa            
-      elif current_year == 2024:
+      elif current_year == 2023:
         summa = df.loc[24:35, "syötetty_energia"].sum() + self.syotettu_energia  
         self.energia_vuodessa = summa
-      elif current_year == 2025:       
+      elif current_year == 2024:       
         summa = df.loc[36:47, "syötetty_energia"].sum() + self.syotettu_energia  
         self.energia_vuodessa = summa
-      elif current_year == 2026:       
+      elif current_year == 2025:       
         summa = df.loc[48:59, "syötetty_energia"].sum() + self.syotettu_energia  
         self.energia_vuodessa = summa            
-      elif current_year == 2027:
+      elif current_year == 2026:
         summa = df.loc[60:71, "syötetty_energia"].sum() + self.syotettu_energia  
         self.energia_vuodessa = summa
-      elif current_year == 2028:       
+      elif current_year == 2027:       
         summa = df.loc[72:83, "syötetty_energia"].sum() + self.syotettu_energia  
         self.energia_vuodessa = summa
-      elif current_year == 2029:       
+      elif current_year == 2028:       
         summa = df.loc[84:95, "syötetty_energia"].sum() + self.syotettu_energia  
         self.energia_vuodessa = summa
-      elif current_year == 2030:       
+      elif current_year == 2029:       
         summa = df.loc[96:107, "syötetty_energia"].sum() + self.syotettu_energia  
         self.energia_vuodessa = summa            
-      elif current_year == 2031:
+      elif current_year == 2030:
         summa = df.loc[108:119, "syötetty_energia"].sum() + self.syotettu_energia  
         self.energia_vuodessa = summa
-      elif current_year == 2032:       
+      elif current_year == 2031:       
         summa = df.loc[120:131, "syötetty_energia"].sum() + self.syotettu_energia  
-        self.energia_vuodessa = summa 
+        self.energia_vuodessa = summa
+      elif current_year == 2032:   
+        summa = df.loc[132:143, "syötetty_energia"].sum() + self.syotettu_energia  
+        self.energia_vuodessa = summa        
 
 # Tämä luokka laskee jokaiselle kuulle käyttötietojen kertymän koko
 # turbiinin käyttöiän ajalta.                              
@@ -261,7 +280,7 @@ lista_huoltotiedot = []
 lista_kayttotiedot = [] 
 while True:
   print("Mitä haluat tehdä:\n(1)Kirjaa käyttötiedot\n(2)Kirjaa huolto\
-  \n(3)Kirjaa korjaus\n(4)Näytä kuvaaja käyttötiedoista\n(5)Lopeta")
+  \n(3)Näytä kuvaaja käyttötiedoista\n(0)Lopeta")
   valinta = int(input("Valitse toimenpide: "))
   if valinta == 1: 
 # Ohjelma kysyy ja kirjaa käyttötiedot sekä antaa tarvittaessa
@@ -272,7 +291,7 @@ while True:
     Kuukausittaisetkayttotiedot.kysy_lampo(tiedot)
     Kuukausittaisetkayttotiedot.kysy_energia(tiedot)
     Kuukausittaisetkayttotiedot.kirjauksen_ajankohta(tiedot)
-    Kokonaiskayttotiedot.sahkonkertyma(tiedot)#nyt näyttäs toimivan.
+    Kokonaiskayttotiedot.sahkonkertyma(tiedot)
     Kokonaiskayttotiedot.lammonkertyma(tiedot)
     Kokonaiskayttotiedot.energian_syotto(tiedot)
     Vuotuisetkayttotiedot.sahkovuodessa(tiedot)
@@ -309,67 +328,18 @@ while True:
     kahva.close()
     lista_huoltotiedot.pop()
 
-  elif valinta == 3:
-    pass
-
 # Ohjelma muodostaa käyttötiedoista kuvaajan pandas ja matplotlib
-# kirjastojen avulla.
-  elif valinta == 4:
-    #Ensin tehdään kuvaaja jokaisen kuukauden tiedoista.
-    df = pd.read_csv("kayttotiedot.csv")
-    x = df['kk/vuosi']
-    y1 = df['sähköntuotto'] 
-    y2 = df['lämmöntuotto']
-    y3 = df['syötetty_energia']
-    fig, ax = plt.subplots()
-    ax.plot(x, y1, label='Sähköntuotto(MWh)')
-    ax.plot(x, y2, label='Lämmöntuotto(MWh)')
-    ax.plot(x, y3, label='Syötetty energia(MWh)') 
-    plt.title('TURBIININ KÄYTTÖTIEDOT')
-    plt.xlabel('Käyttöajankohta(kk/vuosi)')
-    plt.ylabel('MWh')
-    ax.legend()
-    plt.show()
-    #Toiseksi tehdään kuvaaja koko turbiinin käyttöiän kumulatiivisistä arvoista. 
-    df = pd.read_csv("kayttotiedot.csv")
-    x = df['kk/vuosi']
-    y1 = df['sähkö_yhteensä'] 
-    y2 = df['lämpö_yhteensä']
-    y3 = df['energia_yhteensä']
-    fig, ax = plt.subplots()
-    ax.plot(x, y1, label='Sähköntuoton kertymä(MWh)')
-    ax.plot(x, y2, label='Lämmöntuoton kertymä(MWh)')
-    ax.plot(x, y3, label='Syötetyn energian kertymä(MWh)') 
-    plt.title('TURBIININ KÄYTTÖTIETOJEN KERTYMÄ')
-    plt.xlabel('Käyttöajankohta(kk/vuosi)')
-    plt.ylabel('MWh')
-    ax.legend()
-    plt.show()
-    #Kolmanneksi tehdään kuvaajat eri vuosien kumulatiivisistä tiedoista. Tämä vielä teon alla.
-    while True:
-      print("Minkä vuoden tietojen kertymästä haluat kuvaajan?")
-      vuosi_valinta = int(input("Anna vuosi(2022-2032),0 lopettaa kuvaajien tarkastelun: "))
-      if vuosi_valinta == 2022:
-        df = pd.read_csv("kayttotiedot.csv")
-        x = df.loc[df.index[0:12], 'kk/vuosi']
-        y1 = df.loc[df.index[0:12], 'sähkö_vuodessa'] 
-        y2 = df.loc[df.index[0:12], 'lämpö_vuodessa']
-        y3 = df.loc[df.index[0:12], 'energia_vuodessa']
-        fig, ax = plt.subplots()
-        ax.plot(x, y1, label='Sähköntuoton 2022 kertymä(MWh)')
-        ax.plot(x, y2, label='Lämmöntuoton 2022 kertymä(MWh)')
-        ax.plot(x, y3, label='Syötetyn energian 2022 kertymä(MWh)') 
-        plt.title('TURBIININ ENERGIANTUOTON KERTYMÄ 2022')
-        plt.xlabel('Käyttöajankohta(kk/vuosi)')
-        plt.ylabel('MWh')
-        ax.legend()
-        plt.show() 
-      elif vuosi_valinta == 0:
-        break
-      else:
-        print("Väärä valinta. Ilmoita uusi numero.")               
+# kirjastojen avulla. Kuvaajien teko on aputiedostossa.
+  elif valinta == 3:
+    # Kuvaaja1 näyttää koko käyttöajan kuukausi kohtaiset tiedot.
+        kuvaajat.kuvaaja1()
+    # Kuvaaja2 näyttää koko käyttöajan kertymän.    
+        kuvaajat.kuvaaja2()
+    # Kuvaaja3 näyttää halutun vuoden käyttötietojen kertymän.    
+        kuvaajat.kuvaaja3()
+               
 
-  elif valinta == 5:
+  elif valinta == 0:
     print("Ohjelma suljetaan")
     break 
 
