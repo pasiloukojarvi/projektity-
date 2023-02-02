@@ -1,10 +1,10 @@
-import matplotlib.pyplot as plt
-import pandas as pd
+import matplotlib.pyplot as plt  #Kuvaajien tekemiseen
+import pandas as pd  #CSV-tiedostojen lukemiseen.
 
 
 def kuvaaja1():
     #Ensin tehdään kuvaaja jokaisen kuukauden tiedoista.
-    df = pd.read_csv("kopio2_kayttotiedot.csv")
+    df = pd.read_csv("kayttotiedot.csv")
     x = df['kk/vuosi']
     y1 = df['sähköntuotto'] 
     y2 = df['lämmöntuotto']
@@ -17,11 +17,14 @@ def kuvaaja1():
     plt.xlabel('Käyttöajankohta(kk/vuosi)')
     plt.ylabel('MWh')
     ax.legend()
+    labels = df['kk/vuosi']
+    plt.xticks(x, labels, rotation=90)    
     plt.show()
+
 
 def kuvaaja2():
     #Toiseksi tehdään kuvaaja koko turbiinin käyttöiän kumulatiivisistä arvoista. 
-    df = pd.read_csv("kopio2_kayttotiedot.csv")
+    df = pd.read_csv("kayttotiedot.csv")
     x = df['kk/vuosi']
     y1 = df['sähkö_yhteensä'] 
     y2 = df['lämpö_yhteensä']
@@ -34,7 +37,10 @@ def kuvaaja2():
     plt.xlabel('Käyttöajankohta(kk/vuosi)')
     plt.ylabel('MWh')
     ax.legend()
+    labels = df['kk/vuosi']
+    plt.xticks(x, labels, rotation=90)    
     plt.show()
+
 
 def kuvaaja3(): 
     while True:
