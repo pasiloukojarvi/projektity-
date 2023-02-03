@@ -45,8 +45,8 @@ def kuvaaja2():
 def kuvaaja3(): 
     while True:
       print("Minkä vuoden tietojen kertymästä haluat kuvaajan?")
-      vuosi_valinta = int(input("Anna vuosi(2021-2032),0 lopettaa kuvaajien tarkastelun: "))
-      if vuosi_valinta == 2021:
+      vuosi_valinta = str(input("Anna vuosi(2021-2032),0 lopettaa kuvaajien tarkastelun: "))
+      if vuosi_valinta == "2021":
         df = pd.read_csv("kayttotiedot.csv")
         x = df.loc[df.index[0:12], 'kk/vuosi']
         y1 = df.loc[df.index[0:12], 'sähkö_vuodessa'] 
@@ -62,7 +62,7 @@ def kuvaaja3():
         ax.legend()
         plt.show()
 
-      elif vuosi_valinta == 2022:
+      elif vuosi_valinta == "2022":
         df = pd.read_csv("kayttotiedot.csv")
         x = df.loc[df.index[12:24], 'kk/vuosi']
         y1 = df.loc[df.index[12:24], 'sähkö_vuodessa'] 
@@ -77,7 +77,7 @@ def kuvaaja3():
         ax.legend()
         plt.show()
 
-      elif vuosi_valinta == 2023:
+      elif vuosi_valinta == "2023":
         df = pd.read_csv("kayttotiedot.csv")
         x = df.loc[df.index[24:36], 'kk/vuosi']
         y1 = df.loc[df.index[24:36], 'sähkö_vuodessa'] 
@@ -93,7 +93,7 @@ def kuvaaja3():
         ax.legend()
         plt.show()
 
-      elif vuosi_valinta == 2024:
+      elif vuosi_valinta == "2024":
         df = pd.read_csv("kayttotiedot.csv")
         x = df.loc[df.index[36:48], 'kk/vuosi']
         y1 = df.loc[df.index[36:48], 'sähkö_vuodessa'] 
@@ -109,7 +109,7 @@ def kuvaaja3():
         ax.legend()
         plt.show() 
 
-      elif vuosi_valinta == 2025:
+      elif vuosi_valinta == "2025":
         df = pd.read_csv("kayttotiedot.csv")
         x = df.loc[df.index[48:60], 'kk/vuosi']
         y1 = df.loc[df.index[48:60], 'sähkö_vuodessa'] 
@@ -125,7 +125,7 @@ def kuvaaja3():
         ax.legend()
         plt.show()
 
-      elif vuosi_valinta == 2026:
+      elif vuosi_valinta == "2026":
         df = pd.read_csv("kayttotiedot.csv")
         x = df.loc[df.index[60:72], 'kk/vuosi']
         y1 = df.loc[df.index[60:72], 'sähkö_vuodessa'] 
@@ -141,7 +141,7 @@ def kuvaaja3():
         ax.legend()
         plt.show()
 
-      elif vuosi_valinta == 2027:
+      elif vuosi_valinta == "2027":
         df = pd.read_csv("kayttotiedot.csv")
         x = df.loc[df.index[72:84], 'kk/vuosi']
         y1 = df.loc[df.index[72:84], 'sähkö_vuodessa'] 
@@ -157,7 +157,7 @@ def kuvaaja3():
         ax.legend()
         plt.show()
 
-      elif vuosi_valinta == 2028:
+      elif vuosi_valinta == "2028":
         df = pd.read_csv("kayttotiedot.csv")
         x = df.loc[df.index[84:96], 'kk/vuosi']
         y1 = df.loc[df.index[84:96], 'sähkö_vuodessa'] 
@@ -173,7 +173,7 @@ def kuvaaja3():
         ax.legend()
         plt.show()
 
-      elif vuosi_valinta == 2029:
+      elif vuosi_valinta == "2029":
         df = pd.read_csv("kayttotiedot.csv")
         x = df.loc[df.index[96:108], 'kk/vuosi']
         y1 = df.loc[df.index[96:108], 'sähkö_vuodessa'] 
@@ -189,7 +189,7 @@ def kuvaaja3():
         ax.legend()
         plt.show()
 
-      elif vuosi_valinta == 2030:
+      elif vuosi_valinta == "2030":
         df = pd.read_csv("kayttotiedot.csv")
         x = df.loc[df.index[108:120], 'kk/vuosi']
         y1 = df.loc[df.index[108:120], 'sähkö_vuodessa'] 
@@ -205,7 +205,7 @@ def kuvaaja3():
         ax.legend()
         plt.show()
 
-      elif vuosi_valinta == 2031:
+      elif vuosi_valinta == "2031":
         df = pd.read_csv("kayttotiedot.csv")
         x = df.loc[df.index[120:132], 'kk/vuosi']
         y1 = df.loc[df.index[120:132], 'sähkö_vuodessa'] 
@@ -221,7 +221,7 @@ def kuvaaja3():
         ax.legend()
         plt.show()
 
-      elif vuosi_valinta == 2032:
+      elif vuosi_valinta == "2032":
         df = pd.read_csv("kayttotiedot.csv")
         x = df.loc[df.index[132:144], 'kk/vuosi']
         y1 = df.loc[df.index[132:144], 'sähkö_vuodessa'] 
@@ -237,7 +237,7 @@ def kuvaaja3():
         ax.legend()
         plt.show()            
 
-      elif vuosi_valinta == 0:
+      elif vuosi_valinta == "0":
         break
       else:
         print("Väärä valinta. Ilmoita uusi numero.")

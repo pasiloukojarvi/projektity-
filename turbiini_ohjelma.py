@@ -1,6 +1,5 @@
 import time  #Käytetään nykyisen ajan saamiseen tietojen kirjauksen yhteydessä.
 import pandas as pd  #CSV-tiedostojen lukemiseen.
-#import numpy as np
 import csv  #CSV-tiedoston vierheellisen käyttötiedon kiinni ottamiseen.
 import kuvaajat #Itse tehty moduuli kuvaajien tekoa varten.
 
@@ -27,10 +26,10 @@ class Kuukausittaisetkayttotiedot:
        print("Anna kuukausi ja vuosi muodossa kk/vuosi. Esim. 1/23")
        self.kk_vuosi = str(input("Minkä kuukauden tietoja olet antamassa?(kk/vuosi): "))
        with open("kayttotiedot.csv", "r") as file:
-         reader = csv.reader(file)
-         for row in reader:
-          last_row = row
-       if self.kk_vuosi == last_row[0][:4]:
+         lukija = csv.reader(file)
+         for rivi in lukija:
+          viimeinen_rivi = rivi
+       if self.kk_vuosi == viimeinen_rivi[0][:4]:
         print("Virhe: Annoit saman kuukauden ja vuoden kuin viimeksikin!")
        else:
         break    
@@ -43,7 +42,7 @@ class Kuukausittaisetkayttotiedot:
     def kirjauksen_ajankohta(self):
       self.kirjaus_aika = time.strftime("%X %x")
           
-# Ohjelmaan antaa hälytykset huoltotarpeesta.
+# Ohjelma antaa hälytykset huoltotarpeesta.
 # Turbiinien lämpö tulee sähköntuoton sivutuotteena. Kun tiedetään molempien
 # optimitilanteen hyötysuhteet, niin voidaan päätellä, että lämmönvaihtimet
 # ovat likaantuneet, jos suhteellinen lämmöntuotto laskee liian alas.      
@@ -94,7 +93,6 @@ class Vuotuisetkayttotiedot(Kuukausittaisetkayttotiedot):
       df = pd.read_csv("kayttotiedot.csv")
       current_time = time.gmtime() 
       current_year = current_time.tm_year
-      #current_year = 2022
       # Summataan sarakkeen "sähköntuotto" tiedot jokaiselta vuodelta erikseen.
       if current_year == 2021:
         summa = df.loc[df.index[0:11], "sähköntuotto"].sum() + self.sahko  
@@ -137,7 +135,6 @@ class Vuotuisetkayttotiedot(Kuukausittaisetkayttotiedot):
       df = pd.read_csv("kayttotiedot.csv")
       current_time = time.gmtime() 
       current_year = current_time.tm_year
-      #current_year = 2022
       # Summataan sarakkeen "lämmöntuotto" tiedot jokaiselta vuodelta erikseen.
       if current_year == 2021:
         summa = df.loc[0:11, "lämmöntuotto"].sum() + self.lampo   
@@ -180,7 +177,6 @@ class Vuotuisetkayttotiedot(Kuukausittaisetkayttotiedot):
       df = pd.read_csv("kayttotiedot.csv")
       current_time = time.gmtime() 
       current_year = current_time.tm_year
-      #current_year = 2022
       # Summataan sarakkeen "syötetty_energia" tiedot jokaiselta vuodelta erikseen.
       if current_year == 2021:
         summa = df.loc[0:11, "syötetty_energia"].sum() + self.syotettu_energia  
@@ -264,25 +260,24 @@ class Huollon_kirjaus:
       self.ajankohta = time.strftime("%x")        
        
 
-# Tehdään käyttöliittymä ohjelmaan. Testausvaiheen ajaksi salasanan kysyminen
-# on kytketty pois päältä.
+# Tehdään käyttöliittymä ohjelmaan. 
 print("******************************************")
 print("MIKROTURBIINIEN HUOLTO- JA TOIMINTAOHJELMA")
 print("******************************************")
-#while True:
-  #salasana = str(input("Anna salasana: "))
-  #if salasana == "Turbiini2938":
-    #break
-  #else:
-    #print("Väärä salasana")
+while True:
+  salasana = str(input("Anna salasana: "))
+  if salasana == "Turbiini2938":
+    break
+  else:
+    print("Väärä salasana")
 
 lista_huoltotiedot = []
 lista_kayttotiedot = [] 
 while True:
   print("Mitä haluat tehdä:\n(1)Kirjaa käyttötiedot\n(2)Kirjaa huolto\
   \n(3)Näytä kuvaaja käyttötiedoista\n(0)Lopeta")
-  valinta = int(input("Valitse toimenpide: "))
-  if valinta == 1: 
+  valinta = str(input("Valitse toimenpide: "))
+  if valinta == "1": 
 # Ohjelma kysyy ja kirjaa käyttötiedot sekä antaa tarvittaessa
 # hälytykset luokkien ja olioiden avulla.    
     tiedot = Kuukausittaisetkayttotiedot('', 0, 0, 0, '')
@@ -311,7 +306,7 @@ while True:
     kahva.close()
     lista_kayttotiedot.pop()     
 
-  elif valinta == 2:
+  elif valinta == "2":
     huollot = Huollon_kirjaus('', '', '', '')
     Huollon_kirjaus.kysy_tekija(huollot)
     Huollon_kirjaus.kysy_yritys(huollot)
@@ -330,7 +325,7 @@ while True:
 
 # Ohjelma muodostaa käyttötiedoista kuvaajan pandas ja matplotlib
 # kirjastojen avulla. Kuvaajien teko on aputiedostossa.
-  elif valinta == 3:
+  elif valinta == "3":
     # Kuvaaja1 näyttää koko käyttöajan kuukausi kohtaiset tiedot.
         kuvaajat.kuvaaja1()
     # Kuvaaja2 näyttää koko käyttöajan kertymän.    
@@ -339,8 +334,10 @@ while True:
         kuvaajat.kuvaaja3()
                
 
-  elif valinta == 0:
-    print("Ohjelma suljetaan")
+  elif valinta == "0":
+    print("****************************************************")
+    print("SULJETAAN MIKROTURBIINIEN HUOLTO- JA TOIMINTAOHJELMA")
+    print("****************************************************")
     break 
 
   else:
