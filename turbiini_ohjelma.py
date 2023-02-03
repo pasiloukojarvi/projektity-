@@ -24,7 +24,7 @@ class Kuukausittaisetkayttotiedot:
       while True:
        print("Anna kuukausi ja vuosi muodossa kk/vuosi. Esim. 1/23")
        self.kk_vuosi = str(input("Minkä kuukauden tietoja olet antamassa?(kk/vuosi): "))
-       df = pd.read_csv("kopio2_kayttotiedot.csv")
+       df = pd.read_csv("kayttotiedot.csv")
        viimeisin_merkinta = df.iloc[-1]["kk/vuosi"][:4]
        if self.kk_vuosi == viimeisin_merkinta:
         print("Virhe: Annoit saman kuukauden ja vuoden kuin viimeksikin!")
