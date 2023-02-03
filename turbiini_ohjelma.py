@@ -1,6 +1,5 @@
 import time  #Käytetään nykyisen ajan saamiseen tietojen kirjauksen yhteydessä.
 import pandas as pd  #CSV-tiedostojen lukemiseen.
-import csv  #CSV-tiedoston vierheellisen käyttötiedon kiinni ottamiseen.
 import kuvaajat #Itse tehty moduuli kuvaajien tekoa varten.
 
 
@@ -25,11 +24,9 @@ class Kuukausittaisetkayttotiedot:
       while True:
        print("Anna kuukausi ja vuosi muodossa kk/vuosi. Esim. 1/23")
        self.kk_vuosi = str(input("Minkä kuukauden tietoja olet antamassa?(kk/vuosi): "))
-       with open("kayttotiedot.csv", "r") as file:
-         lukija = csv.reader(file)
-         for rivi in lukija:
-          viimeinen_rivi = rivi
-       if self.kk_vuosi == viimeinen_rivi[0][:4]:
+       df = pd.read_csv("kopio2_kayttotiedot.csv")
+       viimeisin_merkinta = df.iloc[-1]["kk/vuosi"][:4]
+       if self.kk_vuosi == viimeisin_merkinta:
         print("Virhe: Annoit saman kuukauden ja vuoden kuin viimeksikin!")
        else:
         break    
